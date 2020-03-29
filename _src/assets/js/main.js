@@ -10,7 +10,7 @@ const getApiData = () => {
     .then(function(data) {
       const datos = data.results;
 
-      console.log(datos);
+      // console.log(datos);
 
       for (const dato of datos) {
         let user = {
@@ -21,10 +21,32 @@ const getApiData = () => {
         };
         // console.log(user);
         users.push(user);
+        paintUsers();
       }
     });
 };
 console.log(users);
 // printedUsers.push(users);
+
+const usersElement = document.querySelector(".js-users");
+
+const getUsersHtmlCode = user => {
+  let htmlCode = "";
+  htmlCode += `<ul class="profile">`;
+  htmlCode += `<li class="name">${user.name}</li>`;
+  htmlCode += `<li class="city">${user.city}</li>`;
+  htmlCode += `<li class="image"><img src="${user.picture}" alt="${user.name}"></li>`;
+  htmlCode += `<li class= "username">${user.username}</li>`;
+  htmlCode += `</ul>`;
+  return htmlCode;
+};
+
+const paintUsers = () => {
+  let usersCode = "";
+  for (const user of users) {
+    usersCode += getUsersHtmlCode(user);
+  }
+  usersElement.innerHTML = usersCode;
+};
 
 getApiData();
