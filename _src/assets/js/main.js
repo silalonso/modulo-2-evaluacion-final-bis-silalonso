@@ -32,12 +32,14 @@ const usersElement = document.querySelector(".js-users");
 
 const getUsersHtmlCode = user => {
   let htmlCode = "";
+  htmlCode += `<section class="userSpace">`;
   htmlCode += `<ul class="profile">`;
   htmlCode += `<li class="name">${user.name}</li>`;
   htmlCode += `<li class="city">${user.city}</li>`;
   htmlCode += `<li class="image"><img src="${user.picture}" alt="${user.name}"></li>`;
   htmlCode += `<li class= "username">${user.username}</li>`;
   htmlCode += `</ul>`;
+  htmlCode += `</section>`;
   return htmlCode;
 };
 
@@ -48,5 +50,11 @@ const paintUsers = () => {
   }
   usersElement.innerHTML = usersCode;
 };
+
+const userToClick = document.querySelector(".profile");
+
+userToClick.addEventListener("click", function() {
+  console.log("ahora somos friends");
+});
 
 getApiData();
