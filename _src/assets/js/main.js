@@ -14,29 +14,28 @@ const getApiData = () => {
 
       for (const dato of datos) {
         let user = {
-          name: dato.name,
+          name: dato.name.first,
           city: dato.location.city,
           picture: dato.picture.medium,
           username: dato.login.username
         };
         // console.log(user);
         users.push(user);
-        paintUsers();
       }
+      paintUsers();
     });
 };
 console.log(users);
-// printedUsers.push(users);
 
 const usersElement = document.querySelector(".js-users");
 
-const getUsersHtmlCode = user => {
+const getUsersHtmlCode = (user, index) => {
   let htmlCode = "";
-  htmlCode += `<section class="userSpace">`;
-  htmlCode += `<ul class="profile">`;
-  htmlCode += `<li class="name">${user.name}</li>`;
+  htmlCode += `<section class="userSpace" >`;
+  htmlCode += `<ul class="profile" id="${index}">`;
+  htmlCode += `<li class="name">${user.name.first}</li>`;
   htmlCode += `<li class="city">${user.city}</li>`;
-  htmlCode += `<li class="image"><img src="${user.picture}" alt="${user.name}"></li>`;
+  htmlCode += `<li class="image"><img src="${user.picture}" alt="${user.name.first}"></li>`;
   htmlCode += `<li class= "username">${user.username}</li>`;
   htmlCode += `</ul>`;
   htmlCode += `</section>`;
@@ -45,16 +44,47 @@ const getUsersHtmlCode = user => {
 
 const paintUsers = () => {
   let usersCode = "";
-  for (const user of users) {
-    usersCode += getUsersHtmlCode(user);
+  for (let index = 0; index < users.length; index++) {
+    const user = users[index];
+
+    usersCode += getUsersHtmlCode(user, index);
   }
+
   usersElement.innerHTML = usersCode;
+  listenUsers();
 };
+function listenUsers() {
+  const userToClick = document.querySelectorAll(".profile");
+  console.log(userToClick);
+  for (const user of userToClick) {
+    console.log(user);
+    user.addEventListener("click", handleUserToClick);
+  }
 
-const userToClick = document.querySelector(".profile");
+  function handleUserToClick(ev) {
+    // console.log(user);
+    const clickedUser = ev.target.id;
+    const encontrar = users.findIndex(function findClickedUser(user) {
+      // console.log();
+      return user.id === clickedUser;
+    });
+    console.log(clickedUser);
 
-userToClick.addEventListener("click", function() {
-  console.log("ahora somos friends");
-});
+    // console.log(ev.target.id);
+    for (const user of users) {
+      if (clickedUser !== null) {
+        user.isFriend = true;
+      }
 
+      console.log(user);
+    }
+  }
+}
 getApiData();
+
+// tengo que consolear el index del elemento clicado (en el console.log de la línea 63) y luego lo de añadirle isFriend:true
+
+// user.isFriend = true;
+// // Object.defineProperty(user, "isFriend", { value: true });
+
+// voy a hacer una prueba a ver si se guarda tambien en Master
