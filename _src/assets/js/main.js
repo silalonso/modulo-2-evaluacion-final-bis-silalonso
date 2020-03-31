@@ -77,14 +77,17 @@ const setInLocalStorage = () => {
   const stringifyUsers = JSON.stringify(users);
   localStorage.setItem("users", stringifyUsers);
 };
-
 const setInLocalStorageButton = document.querySelector(".js-saveData");
+setInLocalStorageButton.addEventListener("click", setInLocalStorage);
 
-const handleSetInLocalStorageButton = setInLocalStorage();
-
-setInLocalStorageButton.addEventListener(
-  "click",
-  handleSetInLocalStorageButton
-);
+const getFromLocalStorage = () => {
+  const localStorageUsers = localStorage.getItem("users");
+  if (localStorageUsers !== null) {
+    users = JSON.parse(localStorageUsers);
+  }
+  paintUsers();
+};
+const getInLocalStorageButton = document.querySelector(".js-loadData");
+getInLocalStorageButton.addEventListener("click", getFromLocalStorage);
 
 getApiData();
