@@ -4,7 +4,11 @@ body {
 
   font-family: $font-main;
 }
-
+.page__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .userSpace {
   background-color: lightblue;
   margin-bottom: 20px;
@@ -19,4 +23,24 @@ body {
 
 .isFriend {
   background-color: lightpink;
+}
+
+.name {
+  font-size: 40px;
+}
+
+.js-saveData {
+  width: 150px;
+  height: 40px;
+  background-color: lightblue;
+}
+.js-loadData {
+  width: 150px;
+  height: 40px;
+  background-color: lightblue;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
