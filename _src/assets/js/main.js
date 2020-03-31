@@ -1,7 +1,6 @@
 "use strict";
 
 let users = [];
-let friends = [];
 
 const getApiData = () => {
   fetch("https://randomuser.me/api/?results=10")
@@ -18,7 +17,6 @@ const getApiData = () => {
         users.push(user);
       }
       paintUsers();
-      setInLocalStorage();
     });
 };
 console.log(users);
@@ -73,12 +71,20 @@ const handleUserToClick = ev => {
     foundUser.isFriend = true;
   }
   paintUsers();
-  setInLocalStorage();
 };
 
 const setInLocalStorage = () => {
-  const stringifyFriends = JSON.stringify(friends);
-  localStorage.setItem("friends", stringifyFriends);
+  const stringifyUsers = JSON.stringify(users);
+  localStorage.setItem("users", stringifyUsers);
 };
+
+const setInLocalStorageButton = document.querySelector(".js-saveData");
+
+const handleSetInLocalStorageButton = setInLocalStorage();
+
+setInLocalStorageButton.addEventListener(
+  "click",
+  handleSetInLocalStorageButton
+);
 
 getApiData();
