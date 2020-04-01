@@ -7,15 +7,19 @@ const getApiData = () => {
     .then(response => response.json())
     .then(function(data) {
       const datos = data.results;
+
       for (const dato of datos) {
         let user = {
           name: dato.name.first,
           city: dato.location.city,
           picture: dato.picture.medium,
-          username: dato.login.username
+          username: dato.login.username,
+          street: dato.location.street.name,
+          streetNumber: dato.location.street.number
         };
         users.push(user);
       }
+      console.log(users);
       paintUsers();
     });
 };
@@ -36,6 +40,9 @@ const getUsersHtmlCode = (user, index) => {
 
   htmlCode += `<li class="name">${user.name}</li>`;
   htmlCode += `<li class="city">${user.city}</li>`;
+  htmlCode += `<li class="street">${user.street}</li>`;
+  htmlCode += `<li class="streetNumber">${user.streetNumber}</li>`;
+
   htmlCode += `<li class="image"><img src="${user.picture}" alt="${user.name}"></li>`;
   htmlCode += `<li class= "username">${user.username}</li>`;
   htmlCode += `</ul>`;
@@ -72,6 +79,13 @@ const handleUserToClick = ev => {
   }
   paintUsers();
 };
+
+const logBtn = document.querySelector(".js-log");
+logBtn.addEventListener("click", function() {
+  for (const user of users) {
+    console.log(user.name);
+  }
+});
 
 const setInLocalStorage = () => {
   const stringifyUsers = JSON.stringify(users);
